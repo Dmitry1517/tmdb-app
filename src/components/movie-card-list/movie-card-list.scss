@@ -1,0 +1,32 @@
+@import "../app/vars.scss";
+
+.movie-card-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.movie-card-list-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 87.5%;
+}
+
+.ant-spin-text {
+	font-size: 20px !important;
+}
+
+.ant-spin .ant-spin-dot {
+	width: 3.2em;
+	height: 3.2em;
+}
+
+.ant-spin-lg .ant-spin-dot i {
+	width: 70px;
+	height: 70px;
+}
+
+.ant-spin .ant-spin-dot-spin {
+	animation-duration: 2s;
+}

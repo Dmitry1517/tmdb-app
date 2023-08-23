@@ -1,0 +1,86 @@
+@import "../app/vars.scss";
+
+// Ант стили
+.ant-card {
+	width: 451px;
+}
+
+.ant-card-body {
+	display: flex;
+	box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.225);
+	border-radius: 0px !important;
+	padding: 0px !important;
+}
+
+.ant-card-bordered {
+	border: 0px
+}
+
+// Пользовательские стили
+.movie-card {
+	padding: 12px 16px;
+
+	&__img {
+		position: relative;
+		flex: 0 0 40.6%;
+		height: 279px;
+		margin-right: 10px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	&__description {
+		padding: 10px;
+		max-height: 279px;
+		overflow: hidden;
+	}
+}
+
+.discription-card {
+	&__titile {
+		font-size: $titleSize;
+		margin-bottom: 7px;
+		line-height: 28px;
+		font-weight: 500;
+		max-height: 28px;
+		overflow: hidden;
+	}
+
+	&__sub-titile {
+		color: $subTitleColor;
+		margin-bottom: 9px;
+		line-height: 22px;
+	}
+
+	&__genres {}
+
+	&__text {
+		line-height: 22px;
+		overflow: hidden;
+		max-height: 129px;
+	}
+}
+
+.genres-card {
+	display: flex;
+	margin-bottom: 10px;
+	line-height: 14.5px;
+	color: rgba(0, 0, 0, 0.65);
+
+	:not(:last-child) {
+		margin-right: 8px;
+	}
+
+	&__item {
+		border: 1px solid rgba(217, 217, 217, 1);
+		border-radius: 3px;
+		padding: 3px 5px;
+	}
+}
