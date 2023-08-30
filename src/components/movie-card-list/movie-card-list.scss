@@ -3,6 +3,7 @@
 .movie-card-list {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .movie-card-list-loading {
@@ -10,7 +11,7 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	width: 87.5%;
+	width: 100%;
 }
 
 .ant-spin-text {
@@ -29,4 +30,10 @@
 
 .ant-spin .ant-spin-dot-spin {
 	animation-duration: 2s;
+}
+
+.ant-alert .ant-alert-error .ant-alert-with-description {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

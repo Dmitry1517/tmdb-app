@@ -2,5 +2,6 @@
 	min-height: 100%;
 	overflow: hidden;
 	margin: 0 auto;
-	max-width: $mw;
+	max-width: $mw + 10px;
+	padding: 0px 10px;
 }

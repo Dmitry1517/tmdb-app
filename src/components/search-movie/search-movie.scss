@@ -1,0 +1,15 @@
+.form-serch-movie {
+	display: flex;
+	margin-top: 10px;
+	max-width: 935px;
+	margin: 10px auto;
+
+	&__input {
+		height: 40px;
+		font-size: 18px;
+
+		&::placeholder {
+			font-size: 18px;
+		}
+	}
+}

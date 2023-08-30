@@ -8,8 +8,10 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.8.3",
     "date-fns": "^2.30.0",
+    "lodash": "^4.17.21",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
+    "react-detect-offline": "^2.4.5",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -19,10 +21,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "format": "prettier --write ./src",
     "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
+      "airbnb",
       "react-app",
       "react-app/jest"
     ]
@@ -40,6 +46,21 @@
     ]
   },
   "devDependencies": {
-    "husky": "^8.0.3"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": []
   }
 }
