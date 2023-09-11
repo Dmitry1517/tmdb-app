@@ -15,7 +15,6 @@ export default class MovieCardList extends Component {
 		isError: false,
 		isDisconected: false,
 		items: [],
-		totalResults: 0,
 	};
 
 	updateMovieData(data) {
@@ -24,7 +23,6 @@ export default class MovieCardList extends Component {
 		this.setState({
 			isLoaded: true,
 			items: data.results,
-			totalResults: data.total_results,
 		});
 		getTotalPages(data);
 	}
@@ -41,9 +39,14 @@ export default class MovieCardList extends Component {
 	}
 
 	updatesMovie() {
-		const { selectedPage, searchInputValue } = this.props;
+		const { selectedPage, searchInputValue, isTabRated, guestSession } = this.props;
 
-		if (searchInputValue === undefined || searchInputValue === '') {
+		if (isTabRated) {
+			this.movieData
+				.getRatedMovies(guestSession, selectedPage)
+				.then((res) => this.updateMovieData(res))
+				.catch((err) => this.onError(err));
+		} else if (searchInputValue === undefined || searchInputValue === '') {
 			this.movieData
 				.getPopularMovie(selectedPage)
 				.then((res) => this.updateMovieData(res))
@@ -72,40 +75,51 @@ export default class MovieCardList extends Component {
 	}
 
 	render() {
-		const { items, isLoaded, isError, isDisconected, totalResults } = this.state;
+		const { items, isLoaded, isError, isDisconected } = this.state;
+		const { getMovieRating, getIdMovie, isTabRated } = this.props;
 
 		const downloadsData = !(isLoaded || isDisconected || isError);
 		const showLoading = downloadsData ? <PrintLoading /> : null;
 
 		const showDisconected = isDisconected ? <PrintDisconected /> : null;
-		const showContent = isLoaded ? <PrintMovie items={items} /> : null;
+
 		const showError = isError ? <PrintError /> : null;
 
-		const showInfoNoData = !totalResults && !downloadsData ? <PrintInfoNoData /> : null;
+		const showInfoNoData = !isTabRated && items.length === 0 && !downloadsData ? <PrintInfoNoData /> : null;
+		const showInfoNoRatedMovie = isTabRated && items.length === 0 && !downloadsData ? <PrintInfoNoRatedMovie /> : null;
 
+		const showMovie = isLoaded ? (
+			<PrintMovie items={items} getMovieRating={getMovieRating} getIdMovie={getIdMovie} />
+		) : null;
 		return (
 			<div className="movie-card-list">
 				<OfflineMessage />
 				{showInfoNoData}
+				{showInfoNoRatedMovie}
 				{showLoading}
 				{showError}
 				{showDisconected}
-				{showContent}
+				{showMovie}
 			</div>
 		);
 	}
 }
 
-const PrintMovie = ({ items }) =>
-	items.map((movieData) => (
+function PrintMovie({ items, getMovieRating }) {
+	return items.map((movieData) => (
 		<MovieCard
 			key={movieData.id}
 			backdropPath={movieData.backdrop_path}
 			title={movieData.title}
 			overview={movieData.overview}
 			release={movieData.release_date}
+			rating={movieData.vote_average}
+			genre={movieData.genre_ids}
+			getRating={movieData.rating}
+			getMovieRating={(rating) => getMovieRating(movieData.id, rating)}
 		/>
 	));
+}
 
 function PrintLoading() {
 	return (
@@ -148,6 +162,18 @@ function PrintInfoNoData() {
 			<Alert
 				showIcon
 				description="Нет фильма с таким названием. Проверьте название или ищите в другом месте :)"
+				type="info"
+			/>
+		</Space>
+	);
+}
+
+function PrintInfoNoRatedMovie() {
+	return (
+		<Space direction="vertical" style={{ width: '100%' }}>
+			<Alert
+				showIcon
+				description="Тут ещё нет оценённых фильмов. Возможно мы не получили вашу оценку, попробуйте зайти немного позже"
 				type="info"
 			/>
 		</Space>
