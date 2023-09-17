@@ -117,7 +117,7 @@ export default class App extends Component {
 					defaultActiveKey="1"
 					items={items}
 					onChange={this.onRated}
-					centered="true"
+					// centered="true"
 					destroyInactiveTabPane="true"
 				/>
 			</GenreProvider>
